@@ -1,6 +1,5 @@
 ﻿using Assignment_NET105.Core.Domain.DTO;
 using Assignment_NET105.Core.Domain.Models;
-using Assignment_NET105.Repositories;
 using Assignment_NET105.RepositoryContracts;
 using Assignment_NET105.ServiceContracts;
 
