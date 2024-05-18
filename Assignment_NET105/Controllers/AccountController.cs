@@ -35,9 +35,9 @@ namespace Assignment_NET105.Controllers
 
         [HttpPost]
         [Authorize("NotAuthorized")]
-        public async IActionResult Register(RegisterDTO registerDTO)
+        public async Task<IActionResult> Register(RegisterDTO registerDTO)
         {
-            if(ModelState.IsValid == false)
+            if (ModelState.IsValid == false)
             {
                 ViewBag.Errors = ModelState.Values.SelectMany(temp => temp.Errors).Select(temp => temp.ErrorMessage);
                 return View(registerDTO);
@@ -48,16 +48,16 @@ namespace Assignment_NET105.Controllers
                 Email = registerDTO.Email,
                 PhoneNumber = registerDTO.Phone,
                 UserName = registerDTO.Email,
-                
+
             };
 
             IdentityResult result = await _userManager.CreateAsync(user);
 
             if (result.Succeeded)
             {
-                if(registerDTO.UserType == UserTypeOptions.Admin)
+                if (registerDTO.UserType == UserTypeOptions.Admin)
                 {
-                    if(await _roleManager.FindByNameAsync(UserTypeOptions.Admin.ToString()) is null)
+                    if (await _roleManager.FindByNameAsync(UserTypeOptions.Admin.ToString()) is null)
                     {
                         ApplicationRole applicationRole = new ApplicationRole() { Name = UserTypeOptions.Admin.ToString() };
                         await _roleManager.CreateAsync(applicationRole);
@@ -67,11 +67,17 @@ namespace Assignment_NET105.Controllers
             }
             else
             {
-                if(registerDTO.UserType == UserTypeOptions.User)
+                if (registerDTO.UserType == UserTypeOptions.User)
                 {
-                    if(await _roleManager.FindByNameAsync(UserTypeOptions.User.ToString()) is null)
+                    if (await _roleManager.FindByNameAsync(UserTypeOptions.User.ToString()) is null)
+                    {
+                        ApplicationRole applicationRole = new ApplicationRole() { Name = UserTypeOptions.User.ToString() };
+                        await _roleManager.CreateAsync(applicationRole);
+                    }
+                    await _userManager.AddToRoleAsync(user, UserTypeOptions.User.ToString());
                 }
             }
+            return View("Login", "Account");
         }
     }
 }

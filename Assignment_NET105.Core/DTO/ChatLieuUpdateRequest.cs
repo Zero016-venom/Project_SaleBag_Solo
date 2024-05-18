@@ -18,7 +18,7 @@ namespace Assignment_NET105.Core.Domain.DTO
 
         public ChatLieu ToChatLieu()
         {
-            return new ChatLieu
+            return new ChatLieu()
             {
                 ID_ChatLieu = ID_ChatLieu,
                 TenChatLieu = TenChatLieu,

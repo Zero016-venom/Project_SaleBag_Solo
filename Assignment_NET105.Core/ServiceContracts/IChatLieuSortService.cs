@@ -5,6 +5,7 @@ namespace Assignment_NET105.ServiceContracts
 {
     public interface IChatLieuSortService
     {
-        Task<List<ChatLieuResponse>> GetSortChatLieus(List<ChatLieuResponse> allChatLieus, string sortBy, SortOrderOptions sortOrder);
+        Task<List<ChatLieuResponse>> GetSortChatLieus(List<ChatLieuResponse> allChatLieus, 
+            string sortBy, SortOrderOptions sortOrder);
     }
 }

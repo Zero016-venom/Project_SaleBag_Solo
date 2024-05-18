@@ -16,7 +16,5 @@ namespace Assignment_NET105.Core.Domain.Models
 
         [ForeignKey("ID_User")]
         public virtual GioHang? GioHang { get; set; }
-
-
     }
 }
