@@ -1,6 +1,5 @@
 ﻿using Assignment_NET105.Core.Domain.DTO;
 using Assignment_NET105.Core.Domain.Models;
-using Assignment_NET105.Repositories;
 using Assignment_NET105.RepositoryContracts;
 using Assignment_NET105.ServiceContracts;
 
@@ -15,7 +14,7 @@ namespace Assignment_NET105.Services
             _chatLieuRepository = chatLieuRepository;
         }
 
-        public async Task<ChatLieuResponse> AddChatLieu(ChatLieuAddRequest? chatLieuAddRequest)
+        public async Task<ChatLieuResponse> AddChatLieu(ChatLieuAddRequest? chatLieuAddRequest) 
         {
             //Validation: chatLieuAddRequest ko được null
             if(chatLieuAddRequest == null) 

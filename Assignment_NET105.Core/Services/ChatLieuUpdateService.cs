@@ -32,7 +32,6 @@ namespace Assignment_NET105.Services
             matchingChatLieu.TrangThai = chatLieuUpdateRequest.TrangThai.ToString();
 
             await _chatLieuRepository.UpdateChatLieu(matchingChatLieu);
-
             return matchingChatLieu.ToChatLieuResponse();
         }
     }

@@ -11,9 +11,9 @@ namespace Assignment_NET105.RepositoryContracts
 
         Task<List<ChatLieu>> GetAllChatLieu();
 
-        Task<ChatLieu?> GetChatLieuByChatLieuID(Guid ChatLieuID);
+        Task<ChatLieu?> GetChatLieuByChatLieuID(Guid chatLieuID);
 
-        Task<ChatLieu?> GetChatLieuByTenChatLieu(string TenChatLieu);
+        Task<ChatLieu?> GetChatLieuByTenChatLieu(string tenChatLieu);
 
         Task<List<ChatLieu>> GetFilterdChatLieu(Expression<Func<ChatLieu, bool>> predicate);
     }
