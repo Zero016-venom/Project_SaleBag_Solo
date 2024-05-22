@@ -1,0 +1,109 @@
+﻿@model ChuongTrinhKhuyenMaiAddRequest
+
+@{
+    ViewBag.Title = "Tạo Chương trình khuyến mãi";
+}
+
+<a asp-controller="ChuongTrinhKhuyenMai" asp-action="Index" class="link-hover">Quay lại danh sách Chương trình khuyến mãi</a>
+<h2>Tạo chất liệu</h2>
+
+<div class="center-box">
+    <form asp-controller="ChuongTrinhKhuyenMai" asp-action="Create" method="post">
+
+        @*TenChuongTrinhKhuyenMai*@
+        <div class="form-field flex">
+            <div class="w-25">
+                <label asp-for="TenChuongTrinhKhuyenMai" class="form-label pt">Tên chương trình khuyến mãi</label>
+            </div>
+            <div class="flex-1">
+                <input asp-for="TenChuongTrinhKhuyenMai" class="form-input" />
+                <span asp-validation-for="TenChuongTrinhKhuyenMai" class="text-red"></span>
+            </div>
+        </div>
+
+
+        @*TrangThai*@
+        <div class="form-field flex">
+            <div class="w-25">
+                <label class="form-label">Trạng Thái</label>
+            </div>
+            <div class="flex-1">
+                @{
+                    string[] status = (string[])Enum.GetNames(typeof(StatusOptions));
+                }
+                @foreach (string item in status)
+                {
+                    <input type="radio" asp-for="TrangThai" value="@item" id="@item" class="ml" />
+                    <label for="@item">@item</label>
+                }
+                <span asp-validation-for="TrangThai" class="text-red"></span>
+            </div>
+        </div>
+
+        @*NgayBatDau*@
+        <div class="form-field flex">
+            <div class="w-25">
+                <label asp-for="NgayBatDau" class="form-label pt">Ngày bắt đầu</label>
+            </div>
+            <div class="flex-1">
+                <input type="datetime-local" asp-for="NgayBatDau" class="form-input"/>
+                <span asp-validation-for="NgayBatDau" class="text-red"></span>
+            </div>
+        </div>
+
+        @*NgayKetThuc*@
+        <div class="form-field flex">
+            <div class="w-25">
+                <label asp-for="NgayKetThuc" class="form-label pt">Ngày kết thúc</label>
+            </div>
+            <div class="flex-1">
+                <input type="datetime-local" asp-for="NgayKetThuc" class="form-input" />
+                <span asp-validation-for="NgayKetThuc" class="text-red"></span>
+            </div>
+        </div>
+
+        @*SanPham*@
+        <div class="form-field flex">
+            <div class="w-25">
+                <label asp-for="ID_SanPham" class="form-label pt">Sản phẩm áp dụng</label>
+            </div>
+            <div class="flex-1">
+                <textarea asp-for="ID_SanPham" class="form-input"></textarea>
+                <span asp-validation-for="ID_SanPham" class="text-red"></span>
+            </div>
+        </div>
+
+        @*Submit*@
+        <div class="form-field flex">
+            <div class="w-25">
+            </div>
+            <div class="flex-1">
+                <button class="button button-green-back">Tạo</button>
+
+                <div asp-validation-summary="All" class="text-red"></div>
+
+                @if (ViewBag.Errors != null)
+                {
+                    <div class="text-red ml">
+                        <ul>
+                            @foreach (string error in ViewBag.Errors)
+                            {
+                                <li class="ml">@error</li>
+                            }
+                        </ul>
+                    </div>
+                }
+            </div>
+        </div>
+
+    </form>
+</div>
+
+@section scripts
+{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" asp-fallback-test="window.jQuery" asp-fallback-src="~/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.4/jquery.validate.min.js" asp-fallback-test="window.jQuery.validator" asp-fallback-src="~/jquery.validate.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js" asp-fallback-test="window.jQuery.validator.unobstrusive" asp-fallback-src="~/jquery.validate.unobtrusive.min.js"></script>
+}

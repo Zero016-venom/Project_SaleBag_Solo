@@ -1,54 +1,66 @@
 ﻿using Assignment_NET105.Core.Domain.Models;
+using Assignment_NET105.Core.RepositoryContracts;
 using Assignment_NET105.Infrastructure.DatabaseContext;
-using Assignment_NET105.RepositoryContracts;
-
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Assignment_NET105.Repositories
+namespace Assignment_NET105.Infrastructure.Repositories
 {
-    public class ChuongTrinhKhuyenMaiRepository : IChuongTrinhKMRepository
+    public class ChuongTrinhKhuyenMaiRepository : IChuongTrinhKhuyenMaiRepository
     {
-        private readonly ApplicationDbContext _db;
+        ApplicationDbContext _db;
 
         public ChuongTrinhKhuyenMaiRepository(ApplicationDbContext db)
         {
             _db = db;
         }
 
-        public async Task<ChuongTrinhKhuyenMai> AddChuongTrinhKM(ChuongTrinhKhuyenMai chuongTrinhKhuyenMai)
+        public async Task<ChuongTrinhKhuyenMai> AddChuongTrinhKhuyenMai(ChuongTrinhKhuyenMai chuongTrinhKhuyenMai)
         {
             _db.ChuongTrinhKhuyenMai.Add(chuongTrinhKhuyenMai);
             await _db.SaveChangesAsync();
             return chuongTrinhKhuyenMai;
         }
 
-        public async Task<List<ChuongTrinhKhuyenMai>> GetAllChuongTrinhKM()
+        public async Task<List<ChuongTrinhKhuyenMai>> GetAllChuongTrinhKhuyenMai()
         {
             return await _db.ChuongTrinhKhuyenMai.ToListAsync();
         }
 
-        public async Task<ChuongTrinhKhuyenMai?> GetChuongTrinhKMByTenCTKM(string tenChuongTrinhKM)
+        public async Task<ChuongTrinhKhuyenMai?> GetChuongTrinhKhuyenMaiByChuongTrinhKhuyenMaiID(Guid chuongTrinhKhuyenMaiID)
         {
-            return await _db.ChuongTrinhKhuyenMai.FirstOrDefaultAsync
-                (temp => temp.TenChuongTrinhKhuyenMai == tenChuongTrinhKM);
+            return await _db.ChuongTrinhKhuyenMai.FirstOrDefaultAsync(temp => temp.ID_ChuongTrinhKhuyenMai == chuongTrinhKhuyenMaiID);
         }
 
-        public async Task<ChuongTrinhKhuyenMai> UpdateChuongTrinhKM(ChuongTrinhKhuyenMai chuongTrinhKhuyenMai)
+        public async Task<ChuongTrinhKhuyenMai?> GetChuongTrinhKhuyenMaiByTenChuongTrinhKhuyenMai(string tenChuongTrinhKhuyenMai)
         {
-            ChuongTrinhKhuyenMai? matchingChuongTrinhKM = await _db.ChuongTrinhKhuyenMai.FirstOrDefaultAsync
-                (temp => temp.ID_ChuongTrinhKhuyenMai == chuongTrinhKhuyenMai.ID_ChuongTrinhKhuyenMai);
+            return await _db.ChuongTrinhKhuyenMai.FirstOrDefaultAsync(temp => temp.TenChuongTrinhKhuyenMai == tenChuongTrinhKhuyenMai);
+        }
 
-            if (matchingChuongTrinhKM == null)
+        public async Task<List<ChuongTrinhKhuyenMai>> GetFilterdChuongTrinhKhuyenMai(Expression<Func<ChuongTrinhKhuyenMai, bool>> predicate)
+        {
+            return await _db.ChuongTrinhKhuyenMai.Where(predicate).ToListAsync();
+        }
+
+        public async Task<ChuongTrinhKhuyenMai> UpdateChuongTrinhKhuyenMai(ChuongTrinhKhuyenMai chuongTrinhKhuyenMai)
+        {
+            ChuongTrinhKhuyenMai? matchingChuongTrinhKhuyenMai = await _db.ChuongTrinhKhuyenMai.FirstOrDefaultAsync(temp => temp.ID_ChuongTrinhKhuyenMai == chuongTrinhKhuyenMai.ID_ChuongTrinhKhuyenMai);
+            if (matchingChuongTrinhKhuyenMai == null)
                 return chuongTrinhKhuyenMai;
 
-            matchingChuongTrinhKM.TenChuongTrinhKhuyenMai = chuongTrinhKhuyenMai.TenChuongTrinhKhuyenMai;
-            matchingChuongTrinhKM.ID_SanPham = chuongTrinhKhuyenMai.ID_SanPham;
-            matchingChuongTrinhKM.NgayBatDau = chuongTrinhKhuyenMai.NgayBatDau;
-            matchingChuongTrinhKM.NgayKetThuc = chuongTrinhKhuyenMai.NgayKetThuc;
-            matchingChuongTrinhKM.TrangThai = chuongTrinhKhuyenMai.TrangThai;
+            matchingChuongTrinhKhuyenMai.TenChuongTrinhKhuyenMai = chuongTrinhKhuyenMai.TenChuongTrinhKhuyenMai;
+            matchingChuongTrinhKhuyenMai.NgayBatDau = chuongTrinhKhuyenMai.NgayBatDau;
+            matchingChuongTrinhKhuyenMai.NgayKetThuc = chuongTrinhKhuyenMai.NgayKetThuc;
+            matchingChuongTrinhKhuyenMai.TrangThai = chuongTrinhKhuyenMai.TrangThai;
+            matchingChuongTrinhKhuyenMai.ID_SanPham = chuongTrinhKhuyenMai.ID_SanPham;
 
-            int countUpdated = await _db.SaveChangesAsync();
-            return matchingChuongTrinhKM;
+            await _db.SaveChangesAsync();
+            return matchingChuongTrinhKhuyenMai;
         }
     }
 }

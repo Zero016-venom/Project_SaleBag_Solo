@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Assignment_NET105.Core.ServiceContracts
 {
-    public interface IChatLieuUpdateService
+    public interface IMauSacAddService
     {
-        Task<ChatLieuResponse> UpdateChatLieu(ChatLieuUpdateRequest? chatLieuUpdateRequest);
+        Task<MauSacResponse> AddMauSac(MauSacAddRequest? mauSacAddRequest);
     }
 }

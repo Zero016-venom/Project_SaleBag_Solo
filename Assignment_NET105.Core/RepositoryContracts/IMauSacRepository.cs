@@ -1,20 +1,25 @@
 ﻿using Assignment_NET105.Core.Domain.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Assignment_NET105.RepositoryContracts
+namespace Assignment_NET105.Core.RepositoryContracts
 {
     public interface IMauSacRepository
     {
-        Task<MauSac> AddMau(MauSac mauSac);
+        Task<MauSac> AddMauSac(MauSac mauSac);
 
-        Task<MauSac> UpdateMau(MauSac mauSac);
+        Task<MauSac> UpdateMauSac(MauSac mauSac);
 
-        Task<List<MauSac>> GetAllMau();
+        Task<List<MauSac>> GetAllMauSac();
 
-        Task<MauSac?> GetMauByMauSacID(Guid ID_MauSac);
+        Task<MauSac?> GetMauSacByMauSacID(Guid mauSacID);
 
-        Task<MauSac?> GetMauByTenMauSac(string tenMauSac);
+        Task<MauSac?> GetMauSacByTenMau(string tenMau);
 
-        Task<List<MauSac>> GetFilterdMauSac(Expression<Func<MauSac, bool>> predicate);
+        Task<List<MauSac>> GetFilteredMauSac(Expression<Func<MauSac, bool>> predicate);
     }
 }

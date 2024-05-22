@@ -1,5 +1,6 @@
 ﻿using Assignment_NET105.Core.Domain.DTO;
 using Assignment_NET105.Core.Domain.Enums;
+using Assignment_NET105.Core.ServiceContracts;
 using Assignment_NET105.ServiceContracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +17,6 @@ namespace Assignment_NET105.Controllers
         private readonly IChatLieuSortService _chatLieuSortService;
         private readonly IChatLieuUpdateService _chatLieuUpdateService;
 
-
         public ChatLieuController(IChatLieuGetService chatLieuGetService, IChatLieuAddService chatLieuAddService,
             IChatLieuSortService chatLieuSortService, IChatLieuUpdateService chatLieuUpdateService)
         {
@@ -25,7 +25,6 @@ namespace Assignment_NET105.Controllers
             _chatLieuSortService = chatLieuSortService;
             _chatLieuUpdateService = chatLieuUpdateService;
         }
-
 
         [Route("[action]")]
         public async Task<IActionResult> Index(string searchBy, string? searchString, string sortBy = nameof(ChatLieuResponse.TenChatLieu),
@@ -51,7 +50,6 @@ namespace Assignment_NET105.Controllers
             return View(sortedChatLieus);
         }
 
-
         [Route("[action]")]
         [HttpGet]
         public async Task<IActionResult> Create()
@@ -65,7 +63,6 @@ namespace Assignment_NET105.Controllers
 
             return View();
         }
-
 
         [HttpPost]
         [Route("[action]")]
@@ -89,7 +86,6 @@ namespace Assignment_NET105.Controllers
 
             return RedirectToAction("Index", "ChatLieu");
         }
-
 
         [HttpGet]
         [Route("[action]/{ID_ChatLieu}")]

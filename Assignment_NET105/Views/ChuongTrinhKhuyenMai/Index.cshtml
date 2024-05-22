@@ -1,0 +1,108 @@
+﻿@model IEnumerable<ChuongTrinhKhuyenMaiResponse>
+
+@{
+    ViewBag.Title = "Chương trình khuyến mãi";
+    ViewBag.CurrentUrl = "~/ChuongTrinhKhuyenMai/Index";
+}
+<form asp-controller="ChuongTrinhKhuyenMai" asp-action="Index" method="get">
+    <h1>Chương trình khuyến mãi</h1>
+    <!-- breadcrumb starts -->
+    <div class="flex">
+        <div class="flex-1">
+            <div class="text-grey">
+                <span>Trang Chủ</span>
+                <i class="fa-solid fa-caret-right"></i>
+                <span class="text-grey">Chương trình khuyến mãi</span>
+            </div>
+        </div>
+
+        <div class="flex-1 text-right">
+            <a asp-controller="ChuongTrinhKhuyenMai" asp-action="Create" class="button-link button-blue-back">Tạo Chương trình khuyến mãi</a>
+        </div>
+    </div>
+    <!-- breadcrumb endds -->
+
+    <div class="box flex">
+        <div class="flex-1">
+            <select class="form-input" name="searchBy">
+                @foreach (var field in ViewBag.SearchFields)
+                {
+                    if (field.Key == ViewBag.CurrentSearchBy)
+                    {
+                        <option value="@field.Key" selected="selected">@field.Value</option>
+                    }
+                    else
+                    {
+                        <option value="@field.Key">@field.Value</option>
+                    }
+
+                }
+                @* Eg: searchBy=PersonName&searchString=abc *@
+            </select>
+        </div>
+
+        <div class="flex-1">
+            <input type="search" id="Search" class="form-input" placeholder="Search" name="searchString" value="@ViewBag.CurrentSearchString" />
+        </div>
+
+        <div class="flex-1">
+            <button class="button button-blue-back">Tìm kiếm</button>
+            <a href="~/ChuongTrinhKhuyenMai/Index" class="link-hover">Xóa hết</a>
+        </div>
+    </div>
+
+
+    <table class="table w-100 mt">
+
+        <thead>
+            <tr>
+                @await Html.PartialAsync("_GridColumnHeader", new ViewDataDictionary(ViewData) {
+                { "ColumnName", nameof(ChuongTrinhKhuyenMai.TenChuongTrinhKhuyenMai) },
+                { "DisplayName", "Tên chương trình khuyến mãi" },
+                })
+
+                @await Html.PartialAsync("_GridColumnHeader", new ViewDataDictionary(ViewData) {
+                { "ColumnName", nameof(ChuongTrinhKhuyenMai.NgayBatDau) },
+                { "DisplayName", "Ngày bắt đầu" },
+                })
+
+                @await Html.PartialAsync("_GridColumnHeader", new ViewDataDictionary(ViewData) {
+                { "ColumnName", nameof(ChuongTrinhKhuyenMai.NgayKetThuc) },
+                { "DisplayName", "Ngày kết thúc" },
+                })
+
+                @await Html.PartialAsync("_GridColumnHeader", new ViewDataDictionary(ViewData) {
+                { "ColumnName", nameof(ChuongTrinhKhuyenMai.TrangThai) },
+                { "DisplayName", "Trạng thái" },
+                })
+
+                @await Html.PartialAsync("_GridColumnHeader", new ViewDataDictionary(ViewData) {
+                { "ColumnName", nameof(ChuongTrinhKhuyenMai.SanPham) },
+                { "DisplayName", "Sản phẩm" },
+                })
+
+                <th>Lựa chọn</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (ChuongTrinhKhuyenMaiResponse item in Model)
+            {
+                <tr>
+                    <td style="width:20%">@item.TenChuongTrinhKhuyenMai</td>
+                    <td style="width:10%">@item.TrangThai</td>
+                    <td style="width:15%">@item.NgayBatDau</td>
+                    <td style="width:15%">@item.NgayKetThuc</td>
+                    <td style="width:20%">@item.ID_SanPham</td>
+                    <td style="width:20%">
+                        <a asp-controller="ChuongTrinhKhuyenMai" asp-action="Edit" asp-route-ID_ChuongTrinhKhuyenMai="@item.ID_ChuongTrinhKhuyenMai" class="button-link button-blue-back">Sửa</a>
+                        @* /Persons/Edit/1 *@
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+
+</form>
